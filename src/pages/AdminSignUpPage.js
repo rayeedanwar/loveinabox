@@ -1,16 +1,26 @@
+import axios from "axios";
 import { useState } from "react";
+
+const baseURL = "http://localhost:3000/volunteers";
 
 export default function AdminSignUpPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [number, setNumber] = useState("");
   const [availability, setAvailability] = useState([]);
+
   const handleOnClick = (e) => {
     e.preventDefault();
     console.log({ name, email, number, availability });
-    alert(`${name} ${email} ${number} ${availability.toString()}`);
-    // api call to go here but depends on form too
-    // will do express api first
+    axios
+      .post(baseURL, { name, email, number, availability })
+      .then((response) => {
+        alert(`${name} congrats on volunteering!`);
+      })
+      .catch((error) => {
+        console.log(error);
+        alert("Woops! Something went wrong :(");
+      });
   };
 
   const handleChange = (event) => {
