@@ -3,11 +3,12 @@ import { useState } from "react";
 export default function AdminSignUpPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [number, setNumber] = useState("");
   const [availability, setAvailability] = useState([]);
   const handleOnClick = (e) => {
     e.preventDefault();
-    console.log({ name, email, availability });
-    alert(`${name} ${email} ${availability.toString()}`);
+    console.log({ name, email, number, availability });
+    alert(`${name} ${email} ${number} ${availability.toString()}`);
     // api call to go here but depends on form too
     // will do express api first
   };
@@ -20,6 +21,9 @@ export default function AdminSignUpPage() {
       case "email":
         setEmail(event.target.value);
         break;
+      case "number":
+        setNumber(event.target.value);
+        break;
       case "availability":
         // proper form validation can handle this better when I get round to thi
         setAvailability([...availability, event.target.value]);
@@ -28,8 +32,9 @@ export default function AdminSignUpPage() {
         break;
     }
   };
+
   return (
-    <div className="App">
+    <div>
       <h1>Admin sign up</h1>
       <form onSubmit={handleOnClick}>
         <label>
@@ -39,8 +44,14 @@ export default function AdminSignUpPage() {
         <br />
 
         <label>
-          email:
+          Email:
           <input type="text" name="email" onChange={handleChange} />
+        </label>
+        <br />
+
+        <label>
+          Number:
+          <input type="text" name="number" onChange={handleChange} />
         </label>
         <br />
 
