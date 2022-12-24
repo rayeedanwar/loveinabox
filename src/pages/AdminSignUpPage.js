@@ -2,6 +2,8 @@ import axios from "axios";
 import { useState } from "react";
 
 const baseURL = "http://localhost:3000/volunteers";
+// should admin be different from volunteers?
+// need to digest user types
 
 export default function AdminSignUpPage() {
   const [name, setName] = useState("");
