@@ -18,7 +18,7 @@ export default function AddOrder() {
       })
       .catch((error) => {
         console.log(error);
-        alert("Woops! Something went wrong :(");
+        alert("Woops! Something went wrong AddOrder :(");
       });
   };
 

@@ -20,7 +20,7 @@ export default function AddProduct() {
       })
       .catch((error) => {
         console.log(error);
-        alert("Woops! Something went wrong :(");
+        alert("Woops! Something went wrong AddProduct :(");
       });
   };
 
