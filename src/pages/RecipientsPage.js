@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import Table from "../components/Table";
+import Table from "../components/TableWrapper";
 import Layout from "./Layout";
 
 const baseURL = "http://localhost:3000/recipients";
