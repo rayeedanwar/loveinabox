@@ -1,5 +1,12 @@
 import axios from "axios";
 import { useState } from "react";
+import {
+  Button,
+  Flex,
+  Input,
+  Spacer,
+  useToast, // generic form submission can wrap toast usage too
+} from "@chakra-ui/react";
 
 const baseURL = "http://localhost:3000/products";
 
@@ -8,20 +15,39 @@ export default function AddProduct() {
   const [description, setDescription] = useState("");
   // may need custom fields
   // ie, CustomField1Key=Size, CustomField1Value=Big  etc
-  const [count, setCount] = useState("");
+  const [count, setCount] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const toast = useToast();
 
   const handleOnClick = (e) => {
     e.preventDefault();
+    setIsLoading(true);
     console.log({ name, description, count });
     axios
       .post(baseURL, { name, description, count })
       .then((response) => {
-        alert(`${name} added to products!`);
+        toast({
+          title: `${name} (${count}) added to products!`,
+          status: "success",
+          duration: 9000,
+          isClosable: true,
+        });
       })
       .catch((error) => {
         console.log(error);
         alert("Woops! Something went wrong AddProduct :(");
-      });
+
+        // this toast causes app to crash :(((((
+        // toast({
+        //   title: "Woops!",
+        //   description: "Something went wrong :(",
+        //   status: "failure",
+        //   duration: 9000,
+        //   isClosable: true,
+        // });
+      })
+      .finally(() => setIsLoading(false));
   };
 
   const handleChange = (event) => {
@@ -41,25 +67,26 @@ export default function AddProduct() {
   };
 
   return (
-    <div>
+    <Flex>
       <h1>Add Product</h1>
       <form onSubmit={handleOnClick}>
-        <label>
-          Name:
-          <input type="text" name="name" onChange={handleChange} />
-        </label>
+        <Input placeholder="Product name" name="name" onChange={handleChange} />
+
+        <Spacer />
         <br />
 
-        <label>
-          Description:
-          <input type="text" name="description" onChange={handleChange} />
-        </label>
+        <Input
+          placeholder="Product description"
+          name="description"
+          onChange={handleChange}
+        />
+
+        <Spacer />
         <br />
 
-        <label>
-          Count:
-          <input type="text" name="count" onChange={handleChange} />
-        </label>
+        <Input defaultValue={count} name="count" onChange={handleChange} />
+
+        <Spacer />
         <br />
 
         {
@@ -67,8 +94,16 @@ export default function AddProduct() {
           // depends if business logic depends on anything outside of this form
         }
 
-        <input type="submit" value="Submit" />
+        <Button
+          isLoading={isLoading}
+          loadingText="Submitting"
+          colorScheme="teal"
+          variant="outline"
+          onClick={handleOnClick}
+        >
+          Submit
+        </Button>
       </form>
-    </div>
+    </Flex>
   );
 }

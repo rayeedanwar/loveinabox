@@ -5,15 +5,14 @@ import {
   Flex,
   Input,
   Spacer,
-  InputGroup,
-  InputLeftElement,
   CheckboxGroup,
   Stack,
   Checkbox,
   useCheckboxGroup,
   useToast, // generic form submission can wrap toast usage too
 } from "@chakra-ui/react";
-import { PhoneIcon, EmailIcon } from "@chakra-ui/icons";
+import EmailInput from "../components/Form/EmailInput";
+import PhoneInput from "../components/Form/PhoneInput";
 
 const baseURL = "http://localhost:3000/volunteers";
 // should admin be different from volunteers?
@@ -31,7 +30,6 @@ export default function AdminSignUpPage() {
   const handleOnClick = (e) => {
     e.preventDefault();
     setIsLoading(true);
-    console.log({ name, email, number, availability });
     axios
       .post(baseURL, { name, email, number, availability })
       .then(() => {
@@ -60,7 +58,6 @@ export default function AdminSignUpPage() {
   };
 
   const handleChange = (event) => {
-    console.log(event);
     switch (event.target.name) {
       case "name":
         setName(event.target.value);
@@ -78,8 +75,6 @@ export default function AdminSignUpPage() {
 
   const { getCheckboxProps } = useCheckboxGroup({ onChange: setAvailability });
 
-  // console.log(getCheckboxProps({ value: "first" }));
-  // I'd want the form to be consistent so will wrap as a component
   return (
     <Flex>
       <h1>Admin sign up</h1>
@@ -89,34 +84,12 @@ export default function AdminSignUpPage() {
         <Spacer />
         <br />
 
-        <InputGroup>
-          <InputLeftElement
-            pointerEvents="none"
-            children={<EmailIcon color="gray.300" />}
-          />
-          <Input
-            type="tel"
-            placeholder="Email"
-            name="email"
-            onChange={handleChange}
-          />
-        </InputGroup>
+        <EmailInput onChange={handleChange} />
 
         <Spacer />
         <br />
 
-        <InputGroup>
-          <InputLeftElement
-            pointerEvents="none"
-            children={<PhoneIcon color="gray.300" />}
-          />
-          <Input
-            type="tel"
-            placeholder="Phone number"
-            name="number"
-            onChange={handleChange}
-          />
-        </InputGroup>
+        <PhoneInput onChange={handleChange} />
 
         <Spacer />
         <br />
