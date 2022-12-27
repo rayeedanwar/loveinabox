@@ -18,6 +18,7 @@ import {
 } from "@chakra-ui/react";
 import AddRemoveCartButton from "../components/AddRemoveCartButton";
 import isProductInCart from "../utils/isProductInCart";
+import Layout from "./Layout";
 
 // middleware should add recipientId to uri
 const baseURL = "http://localhost:3000/recipients/orders";
@@ -97,62 +98,63 @@ export default function AddOrder() {
   };
 
   return (
-    <Flex>
-      <h1>Add Order</h1>
-      <form onSubmit={handleOnClick}>
-        <SimpleGrid
-          spacing={4}
-          templateColumns="repeat(auto-fill, minmax(200px, 1fr))"
-        >
-          {productsRes.map(({ id, name, description, src }) => {
-            return (
-              <Card maxW="sm" key={id} align="center" name={name}>
-                <CardBody>
-                  <Image
-                    src={src}
-                    alt={`${name} - ${description}`}
-                    borderRadius="lg"
-                  />
-                  <Stack mt="6" spacing="3">
-                    <Heading size="md">{name}</Heading>
-                    <Text>{description}</Text>
-                  </Stack>
-                </CardBody>
-                <Divider />
-                <CardFooter>
-                  <AddRemoveCartButton
-                    productId={id}
-                    cart={cart}
-                    onClick={handleProductCartChange}
-                  />
-                </CardFooter>
-              </Card>
-            );
-          })}
-          <Spacer />
-          <br />
-          <Divider orientation="horizontal" />
-          <Textarea
-            placeholder="Add notes for the order here"
-            size="sm"
-            resize="vertical"
-            onChange={handleChange}
-          />
-
-          <Spacer />
-          <br />
-
-          <Button
-            isLoading={isLoading}
-            loadingText="Submitting"
-            colorScheme="teal"
-            variant="outline"
-            onClick={handleOnClick}
+    <Layout title="Add Order">
+      <Flex>
+        <form onSubmit={handleOnClick}>
+          <SimpleGrid
+            spacing={4}
+            templateColumns="repeat(auto-fill, minmax(200px, 1fr))"
           >
-            Submit
-          </Button>
-        </SimpleGrid>
-      </form>
-    </Flex>
+            {productsRes.map(({ id, name, description, src }) => {
+              return (
+                <Card maxW="sm" key={id} align="center" name={name}>
+                  <CardBody>
+                    <Image
+                      src={src}
+                      alt={`${name} - ${description}`}
+                      borderRadius="lg"
+                    />
+                    <Stack mt="6" spacing="3">
+                      <Heading size="md">{name}</Heading>
+                      <Text>{description}</Text>
+                    </Stack>
+                  </CardBody>
+                  <Divider />
+                  <CardFooter>
+                    <AddRemoveCartButton
+                      productId={id}
+                      cart={cart}
+                      onClick={handleProductCartChange}
+                    />
+                  </CardFooter>
+                </Card>
+              );
+            })}
+            <Spacer />
+            <br />
+            <Divider orientation="horizontal" />
+            <Textarea
+              placeholder="Add notes for the order here"
+              size="sm"
+              resize="vertical"
+              onChange={handleChange}
+            />
+
+            <Spacer />
+            <br />
+
+            <Button
+              isLoading={isLoading}
+              loadingText="Submitting"
+              colorScheme="teal"
+              variant="outline"
+              onClick={handleOnClick}
+            >
+              Submit
+            </Button>
+          </SimpleGrid>
+        </form>
+      </Flex>
+    </Layout>
   );
 }

@@ -10,6 +10,7 @@ import {
 } from "@chakra-ui/react";
 import EmailInput from "../components/Form/EmailInput";
 import PhoneInput from "../components/Form/PhoneInput";
+import Layout from "./Layout";
 
 const baseURL = "http://localhost:3000/recipients";
 
@@ -69,34 +70,35 @@ export default function RecipientSignUpPage() {
   };
 
   return (
-    <Flex>
-      <h1>Sign up</h1>
-      <form onSubmit={handleOnClick}>
-        <Input placeholder="Full name" name="name" onChange={handleChange} />
+    <Layout title="Sign up">
+      <Flex>
+        <form onSubmit={handleOnClick}>
+          <Input placeholder="Full name" name="name" onChange={handleChange} />
 
-        <Spacer />
-        <br />
+          <Spacer />
+          <br />
 
-        <EmailInput onChange={handleChange} />
+          <EmailInput onChange={handleChange} />
 
-        <Spacer />
-        <br />
+          <Spacer />
+          <br />
 
-        <PhoneInput onChange={handleChange} />
+          <PhoneInput onChange={handleChange} />
 
-        <Spacer />
-        <br />
+          <Spacer />
+          <br />
 
-        <Button
-          isLoading={isLoading}
-          loadingText="Submitting"
-          colorScheme="teal"
-          variant="outline"
-          onClick={handleOnClick}
-        >
-          Submit
-        </Button>
-      </form>
-    </Flex>
+          <Button
+            isLoading={isLoading}
+            loadingText="Submitting"
+            colorScheme="teal"
+            variant="outline"
+            onClick={handleOnClick}
+          >
+            Submit
+          </Button>
+        </form>
+      </Flex>
+    </Layout>
   );
 }

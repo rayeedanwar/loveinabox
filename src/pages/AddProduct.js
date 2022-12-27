@@ -3,10 +3,12 @@ import { useState } from "react";
 import {
   Button,
   Flex,
+  Heading,
   Input,
   Spacer,
   useToast, // generic form submission can wrap toast usage too
 } from "@chakra-ui/react";
+import Layout from "./Layout";
 
 const baseURL = "http://localhost:3000/products";
 
@@ -67,43 +69,48 @@ export default function AddProduct() {
   };
 
   return (
-    <Flex>
-      <h1>Add Product</h1>
-      <form onSubmit={handleOnClick}>
-        <Input placeholder="Product name" name="name" onChange={handleChange} />
+    <Layout title="Add Product">
+      <Flex>
+        <form onSubmit={handleOnClick}>
+          <Input
+            placeholder="Product name"
+            name="name"
+            onChange={handleChange}
+          />
 
-        <Spacer />
-        <br />
+          <Spacer />
+          <br />
 
-        <Input
-          placeholder="Product description"
-          name="description"
-          onChange={handleChange}
-        />
+          <Input
+            placeholder="Product description"
+            name="description"
+            onChange={handleChange}
+          />
 
-        <Spacer />
-        <br />
+          <Spacer />
+          <br />
 
-        <Input defaultValue={count} name="count" onChange={handleChange} />
+          <Input defaultValue={count} name="count" onChange={handleChange} />
 
-        <Spacer />
-        <br />
+          <Spacer />
+          <br />
 
-        {
-          // potentially add business logic to set frequency of ability to order?
-          // depends if business logic depends on anything outside of this form
-        }
+          {
+            // potentially add business logic to set frequency of ability to order?
+            // depends if business logic depends on anything outside of this form
+          }
 
-        <Button
-          isLoading={isLoading}
-          loadingText="Submitting"
-          colorScheme="teal"
-          variant="outline"
-          onClick={handleOnClick}
-        >
-          Submit
-        </Button>
-      </form>
-    </Flex>
+          <Button
+            isLoading={isLoading}
+            loadingText="Submitting"
+            colorScheme="teal"
+            variant="outline"
+            onClick={handleOnClick}
+          >
+            Submit
+          </Button>
+        </form>
+      </Flex>
+    </Layout>
   );
 }

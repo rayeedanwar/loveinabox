@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Table from "../components/Table";
+import Layout from "./Layout";
 
 const baseURL = "http://localhost:3000/volunteers";
 
@@ -21,9 +22,8 @@ export default function VolunteersPage() {
   }, []);
 
   return (
-    <div>
-      <h1>Here be yer volunteers</h1>
+    <Layout title="Here be yer volunteers">
       <Table data={volunteers} />
-    </div>
+    </Layout>
   );
 }
