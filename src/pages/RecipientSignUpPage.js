@@ -3,7 +3,6 @@ import { useState } from "react";
 
 import {
   Button,
-  Flex,
   Input,
   Spacer,
   useToast, // generic form submission can wrap toast usage too
@@ -71,34 +70,32 @@ export default function RecipientSignUpPage() {
 
   return (
     <Layout title="Sign up">
-      <Flex>
-        <form onSubmit={handleOnClick}>
-          <Input placeholder="Full name" name="name" onChange={handleChange} />
+      <form onSubmit={handleOnClick}>
+        <Input placeholder="Full name" name="name" onChange={handleChange} />
 
-          <Spacer />
-          <br />
+        <Spacer />
+        <br />
 
-          <EmailInput onChange={handleChange} />
+        <EmailInput onChange={handleChange} />
 
-          <Spacer />
-          <br />
+        <Spacer />
+        <br />
 
-          <PhoneInput onChange={handleChange} />
+        <PhoneInput onChange={handleChange} />
 
-          <Spacer />
-          <br />
+        <Spacer />
+        <br />
 
-          <Button
-            isLoading={isLoading}
-            loadingText="Submitting"
-            colorScheme="teal"
-            variant="outline"
-            onClick={handleOnClick}
-          >
-            Submit
-          </Button>
-        </form>
-      </Flex>
+        <Button
+          isLoading={isLoading}
+          loadingText="Submitting"
+          colorScheme="teal"
+          variant="outline"
+          onClick={handleOnClick}
+        >
+          Submit
+        </Button>
+      </form>
     </Layout>
   );
 }

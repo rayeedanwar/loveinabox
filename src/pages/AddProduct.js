@@ -2,8 +2,6 @@ import axios from "axios";
 import { useState } from "react";
 import {
   Button,
-  Flex,
-  Heading,
   Input,
   Spacer,
   useToast, // generic form submission can wrap toast usage too
@@ -70,47 +68,41 @@ export default function AddProduct() {
 
   return (
     <Layout title="Add Product">
-      <Flex>
-        <form onSubmit={handleOnClick}>
-          <Input
-            placeholder="Product name"
-            name="name"
-            onChange={handleChange}
-          />
+      <form onSubmit={handleOnClick}>
+        <Input placeholder="Product name" name="name" onChange={handleChange} />
 
-          <Spacer />
-          <br />
+        <Spacer />
+        <br />
 
-          <Input
-            placeholder="Product description"
-            name="description"
-            onChange={handleChange}
-          />
+        <Input
+          placeholder="Product description"
+          name="description"
+          onChange={handleChange}
+        />
 
-          <Spacer />
-          <br />
+        <Spacer />
+        <br />
 
-          <Input defaultValue={count} name="count" onChange={handleChange} />
+        <Input defaultValue={count} name="count" onChange={handleChange} />
 
-          <Spacer />
-          <br />
+        <Spacer />
+        <br />
 
-          {
-            // potentially add business logic to set frequency of ability to order?
-            // depends if business logic depends on anything outside of this form
-          }
+        {
+          // potentially add business logic to set frequency of ability to order?
+          // depends if business logic depends on anything outside of this form
+        }
 
-          <Button
-            isLoading={isLoading}
-            loadingText="Submitting"
-            colorScheme="teal"
-            variant="outline"
-            onClick={handleOnClick}
-          >
-            Submit
-          </Button>
-        </form>
-      </Flex>
+        <Button
+          isLoading={isLoading}
+          loadingText="Submitting"
+          colorScheme="teal"
+          variant="outline"
+          onClick={handleOnClick}
+        >
+          Submit
+        </Button>
+      </form>
     </Layout>
   );
 }
