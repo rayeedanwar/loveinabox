@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Table from "../components/TableWrapper";
+import AddOrder from "./AddOrder";
 import Layout from "./Layout";
 
 const baseURL = "http://localhost:3000/recipients/orders";
@@ -23,6 +24,7 @@ export default function OrdersPage() {
 
   return (
     <Layout title="Here be yer orders">
+      <AddOrder />
       <Table data={orders} />
     </Layout>
   );

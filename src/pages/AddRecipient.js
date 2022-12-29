@@ -2,18 +2,17 @@ import axios from "axios";
 import { useState } from "react";
 
 import {
-  Button,
   Input,
   Spacer,
   useToast, // generic form submission can wrap toast usage too
 } from "@chakra-ui/react";
 import EmailInput from "../components/Form/EmailInput";
 import PhoneInput from "../components/Form/PhoneInput";
-import Layout from "./Layout";
+import FormModal from "../components/Form/FormModal";
 
 const baseURL = "http://localhost:3000/recipients";
 
-export default function RecipientSignUpPage() {
+export default function AddRecipient() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [number, setNumber] = useState("");
@@ -68,34 +67,28 @@ export default function RecipientSignUpPage() {
     }
   };
 
+  const modalBody = (
+    <form>
+      <Input placeholder="Full name" name="name" onChange={handleChange} />
+
+      <Spacer />
+      <br />
+
+      <EmailInput onChange={handleChange} />
+
+      <Spacer />
+      <br />
+
+      <PhoneInput onChange={handleChange} />
+    </form>
+  );
+
   return (
-    <Layout title="Sign up">
-      <form onSubmit={handleOnClick}>
-        <Input placeholder="Full name" name="name" onChange={handleChange} />
-
-        <Spacer />
-        <br />
-
-        <EmailInput onChange={handleChange} />
-
-        <Spacer />
-        <br />
-
-        <PhoneInput onChange={handleChange} />
-
-        <Spacer />
-        <br />
-
-        <Button
-          isLoading={isLoading}
-          loadingText="Submitting"
-          colorScheme="teal"
-          variant="outline"
-          onClick={handleOnClick}
-        >
-          Submit
-        </Button>
-      </form>
-    </Layout>
+    <FormModal
+      title="Add Recipient"
+      modalBody={modalBody}
+      isLoading={isLoading}
+      handleOnClick={handleOnClick}
+    />
   );
 }

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Table from "../components/TableWrapper";
+import AddRecipient from "./AddRecipient";
 import Layout from "./Layout";
 
 const baseURL = "http://localhost:3000/recipients";
@@ -23,6 +24,7 @@ export default function RecipientsPage() {
 
   return (
     <Layout title="Here be yer recipients">
+      <AddRecipient />
       <Table data={recipients} />
     </Layout>
   );

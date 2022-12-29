@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
 import {
-  Button,
   Input,
   Spacer,
   CheckboxGroup,
@@ -12,13 +11,13 @@ import {
 } from "@chakra-ui/react";
 import EmailInput from "../components/Form/EmailInput";
 import PhoneInput from "../components/Form/PhoneInput";
-import Layout from "./Layout";
+import FormModal from "../components/Form/FormModal";
 
 const baseURL = "http://localhost:3000/volunteers";
 // should admin be different from volunteers?
 // need to digest user types
 
-export default function AdminSignUpPage() {
+export default function AddVolunteer() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [number, setNumber] = useState("");
@@ -75,57 +74,47 @@ export default function AdminSignUpPage() {
 
   const { getCheckboxProps } = useCheckboxGroup({ onChange: setAvailability });
 
+  const modalBody = (
+    <form>
+      <Input placeholder="Full name" name="name" onChange={handleChange} />
+
+      <Spacer />
+      <br />
+
+      <EmailInput onChange={handleChange} />
+
+      <Spacer />
+      <br />
+
+      <PhoneInput onChange={handleChange} />
+
+      <Spacer />
+      <br />
+
+      <label>
+        Availability (week of the month):
+        <CheckboxGroup colorScheme="teal" name="availability">
+          <Stack spacing={[1, 5]} direction={["column", "row"]}>
+            <Checkbox {...getCheckboxProps({ value: "first" })}>First</Checkbox>
+            <Checkbox {...getCheckboxProps({ value: "second" })}>
+              Second
+            </Checkbox>
+            <Checkbox {...getCheckboxProps({ value: "third" })}>Third</Checkbox>
+            <Checkbox {...getCheckboxProps({ value: "fourth" })}>
+              Fourth
+            </Checkbox>
+          </Stack>
+        </CheckboxGroup>
+      </label>
+    </form>
+  );
+
   return (
-    <Layout title="Admin sign up">
-      <form>
-        <Input placeholder="Full name" name="name" onChange={handleChange} />
-
-        <Spacer />
-        <br />
-
-        <EmailInput onChange={handleChange} />
-
-        <Spacer />
-        <br />
-
-        <PhoneInput onChange={handleChange} />
-
-        <Spacer />
-        <br />
-
-        <label>
-          Availability (week of the month):
-          <CheckboxGroup colorScheme="teal" name="availability">
-            <Stack spacing={[1, 5]} direction={["column", "row"]}>
-              <Checkbox {...getCheckboxProps({ value: "first" })}>
-                First
-              </Checkbox>
-              <Checkbox {...getCheckboxProps({ value: "second" })}>
-                Second
-              </Checkbox>
-              <Checkbox {...getCheckboxProps({ value: "third" })}>
-                Third
-              </Checkbox>
-              <Checkbox {...getCheckboxProps({ value: "fourth" })}>
-                Fourth
-              </Checkbox>
-            </Stack>
-          </CheckboxGroup>
-        </label>
-
-        <Spacer />
-        <br />
-
-        <Button
-          isLoading={isLoading}
-          loadingText="Submitting"
-          colorScheme="teal"
-          variant="outline"
-          onClick={handleOnClick}
-        >
-          Submit
-        </Button>
-      </form>
-    </Layout>
+    <FormModal
+      title="Add Volunteer"
+      modalBody={modalBody}
+      isLoading={isLoading}
+      handleOnClick={handleOnClick}
+    />
   );
 }

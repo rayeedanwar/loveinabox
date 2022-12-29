@@ -1,13 +1,13 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Table from "../components/TableWrapper";
+import AddProduct from "./AddProduct";
 import Layout from "./Layout";
 
 const baseURL = "http://localhost:3000/products";
 
 export default function ProductsPage() {
   const [products, setProducts] = useState([]);
-
   useEffect(() => {
     // this axios call can be a hook?
     // potensh better testing, maybe even with pact
@@ -23,6 +23,7 @@ export default function ProductsPage() {
 
   return (
     <Layout title="Here be yer products">
+      <AddProduct />
       <Table data={products} />
     </Layout>
   );

@@ -1,12 +1,11 @@
 import axios from "axios";
 import { useState } from "react";
 import {
-  Button,
   Input,
   Spacer,
   useToast, // generic form submission can wrap toast usage too
 } from "@chakra-ui/react";
-import Layout from "./Layout";
+import FormModal from "../components/Form/FormModal";
 
 const baseURL = "http://localhost:3000/products";
 
@@ -21,6 +20,8 @@ export default function AddProduct() {
   const toast = useToast();
 
   const handleOnClick = (e) => {
+    // api call with succes toast feels like it should sit closely with FormModal
+    // look at refactor
     e.preventDefault();
     setIsLoading(true);
     console.log({ name, description, count });
@@ -65,44 +66,40 @@ export default function AddProduct() {
         break;
     }
   };
+  const modalBody = (
+    <form onSubmit={handleOnClick}>
+      <Input placeholder="Product name" name="name" onChange={handleChange} />
+
+      <Spacer />
+      <br />
+
+      <Input
+        placeholder="Product description"
+        name="description"
+        onChange={handleChange}
+      />
+
+      <Spacer />
+      <br />
+
+      <Input defaultValue={count} name="count" onChange={handleChange} />
+
+      <Spacer />
+      <br />
+
+      {
+        // potentially add business logic to set frequency of ability to order?
+        // depends if business logic depends on anything outside of this form
+      }
+    </form>
+  );
 
   return (
-    <Layout title="Add Product">
-      <form onSubmit={handleOnClick}>
-        <Input placeholder="Product name" name="name" onChange={handleChange} />
-
-        <Spacer />
-        <br />
-
-        <Input
-          placeholder="Product description"
-          name="description"
-          onChange={handleChange}
-        />
-
-        <Spacer />
-        <br />
-
-        <Input defaultValue={count} name="count" onChange={handleChange} />
-
-        <Spacer />
-        <br />
-
-        {
-          // potentially add business logic to set frequency of ability to order?
-          // depends if business logic depends on anything outside of this form
-        }
-
-        <Button
-          isLoading={isLoading}
-          loadingText="Submitting"
-          colorScheme="teal"
-          variant="outline"
-          onClick={handleOnClick}
-        >
-          Submit
-        </Button>
-      </form>
-    </Layout>
+    <FormModal
+      title="Add Product"
+      modalBody={modalBody}
+      isLoading={isLoading}
+      handleOnClick={handleOnClick}
+    />
   );
 }
