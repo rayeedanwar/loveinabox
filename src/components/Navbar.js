@@ -1,4 +1,5 @@
 import { Button, ButtonGroup, Flex, Image, Spacer } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 
 // logo
 // https://www.flaticon.com/free-icon/open-box_1083057?related_id=1082955&origin=search
@@ -10,15 +11,24 @@ export default function Navbar() {
 
       <Spacer />
       {
-        // add menu for smaller viewports
+        // add boiga menu for smaller viewports
       }
-      <ButtonGroup>
-        <Button>Volunteers</Button>
-        <Button>Recipients</Button>
+      <ButtonGroup margin={5}>
+        <Link to={`/volunteers`}>
+          <Button>Volunteers</Button>
+        </Link>
         <Spacer />
-        <Button>Orders</Button>
+        <Link to={`/recipients`}>
+          <Button>Recipients</Button>
+        </Link>
         <Spacer />
-        <Button>Products</Button>
+        <Link to={`/orders`}>
+          <Button>Orders</Button>
+        </Link>
+        <Spacer />
+        <Link to={`/products`}>
+          <Button>Products</Button>
+        </Link>
       </ButtonGroup>
     </Flex>
   );
