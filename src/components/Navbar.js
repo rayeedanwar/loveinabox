@@ -7,7 +7,9 @@ import { Link } from "react-router-dom";
 export default function Navbar() {
   return (
     <Flex minWidth="max-content" alignItems="center" gap="2" bg="teal">
-      <Image src="open-box.png" boxSize="20" objectFit="contain" margin={5} />
+      <Link to={`/`}>
+        <Image src="open-box.png" boxSize="20" objectFit="contain" margin={5} />
+      </Link>
 
       <Spacer />
       {
