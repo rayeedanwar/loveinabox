@@ -4,6 +4,7 @@ import VolunteersPage from "./pages/VolunteersPage";
 import ProductsPage from "./pages/ProductsPage";
 import OrdersPage from "./pages/OrdersPage";
 import RecipientsPage from "./pages/RecipientsPage";
+import LoginPage from "./pages/LoginPage";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ChakraProvider } from "@chakra-ui/react";
 import ErrorPage from "./pages/ErrorPage";
@@ -44,8 +45,8 @@ function App() {
       ],
     },
     {
-      path: "/recipients",
-      element: <RecipientsPage />,
+      path: "/login",
+      element: wrapChakraProvider(<LoginPage />),
     },
   ]);
   return <RouterProvider router={router} />;
