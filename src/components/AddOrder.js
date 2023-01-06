@@ -14,12 +14,12 @@ import {
   Textarea,
   useToast, // generic form submission can wrap toast usage too
 } from "@chakra-ui/react";
-import AddRemoveCartButton from "../components/AddRemoveCartButton";
+import AddRemoveCartButton from "./AddRemoveCartButton";
 import isProductInCart from "../utils/isProductInCart";
-import FormModal from "../components/Form/FormModal";
+import FormModal from "./Form/FormModal";
 
 // middleware should add recipientId to uri
-const baseURL = "http://localhost:3000/recipients/orders";
+const baseURL = `${process.env.REACT_APP_API_URL}/recipients/orders`;
 
 export default function AddOrder() {
   // to be replaced by api res

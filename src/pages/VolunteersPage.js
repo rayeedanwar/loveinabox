@@ -1,10 +1,10 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Table from "../components/TableWrapper";
-import AddVolunteer from "./AddVolunteer";
-import Layout from "./Layout";
+import AddVolunteer from "../components/AddVolunteer";
+import Layout from "../components/Layout";
 
-const baseURL = "http://localhost:3000/volunteers";
+const baseURL = `${process.env.REACT_APP_API_URL}/volunteers`;
 
 export default function VolunteersPage() {
   const [volunteers, setVolunteers] = useState([]);

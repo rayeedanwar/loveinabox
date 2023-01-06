@@ -1,21 +1,27 @@
 import axios from "axios";
 import { useState } from "react";
-
 import {
   Input,
   Spacer,
+  CheckboxGroup,
+  Stack,
+  Checkbox,
+  useCheckboxGroup,
   useToast, // generic form submission can wrap toast usage too
 } from "@chakra-ui/react";
-import EmailInput from "../components/Form/EmailInput";
-import PhoneInput from "../components/Form/PhoneInput";
-import FormModal from "../components/Form/FormModal";
+import EmailInput from "./Form/EmailInput";
+import PhoneInput from "./Form/PhoneInput";
+import FormModal from "./Form/FormModal";
 
-const baseURL = "http://localhost:3000/recipients";
+const baseURL = `${process.env.REACT_APP_API_URL}/volunteers`;
+// should admin be different from volunteers?
+// need to digest user types
 
-export default function AddRecipient() {
+export default function AddVolunteer() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [number, setNumber] = useState("");
+  const [availability, setAvailability] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const toast = useToast();
@@ -23,12 +29,11 @@ export default function AddRecipient() {
   const handleOnClick = (e) => {
     e.preventDefault();
     setIsLoading(true);
-
     axios
-      .post(baseURL, { name, email, number })
+      .post(baseURL, { name, email, number, availability })
       .then(() => {
         toast({
-          title: `${name}, you've been added!`,
+          title: `${name} congrats on volunteering!`,
           description: "We've created your account for you.",
           status: "success",
           duration: 9000,
@@ -67,6 +72,8 @@ export default function AddRecipient() {
     }
   };
 
+  const { getCheckboxProps } = useCheckboxGroup({ onChange: setAvailability });
+
   const modalBody = (
     <form>
       <Input placeholder="Full name" name="name" onChange={handleChange} />
@@ -80,12 +87,31 @@ export default function AddRecipient() {
       <br />
 
       <PhoneInput onChange={handleChange} />
+
+      <Spacer />
+      <br />
+
+      <label>
+        Availability (week of the month):
+        <CheckboxGroup colorScheme="teal" name="availability">
+          <Stack spacing={[1, 5]} direction={["column", "row"]}>
+            <Checkbox {...getCheckboxProps({ value: "first" })}>First</Checkbox>
+            <Checkbox {...getCheckboxProps({ value: "second" })}>
+              Second
+            </Checkbox>
+            <Checkbox {...getCheckboxProps({ value: "third" })}>Third</Checkbox>
+            <Checkbox {...getCheckboxProps({ value: "fourth" })}>
+              Fourth
+            </Checkbox>
+          </Stack>
+        </CheckboxGroup>
+      </label>
     </form>
   );
 
   return (
     <FormModal
-      title="Add Recipient"
+      title="Add Volunteer"
       modalBody={modalBody}
       isLoading={isLoading}
       handleOnClick={handleOnClick}

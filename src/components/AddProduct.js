@@ -5,9 +5,9 @@ import {
   Spacer,
   useToast, // generic form submission can wrap toast usage too
 } from "@chakra-ui/react";
-import FormModal from "../components/Form/FormModal";
+import FormModal from "./Form/FormModal";
 
-const baseURL = "http://localhost:3000/products";
+const baseURL = `${process.env.REACT_APP_API_URL}/products`;
 
 export default function AddProduct() {
   const [name, setName] = useState("");

@@ -1,10 +1,10 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Table from "../components/TableWrapper";
-import AddRecipient from "./AddRecipient";
-import Layout from "./Layout";
+import AddRecipient from "../components/AddRecipient";
+import Layout from "../components/Layout";
 
-const baseURL = "http://localhost:3000/recipients";
+const baseURL = `${process.env.REACT_APP_API_URL}/households`;
 
 export default function RecipientsPage() {
   const [recipients, setRecipients] = useState([]);

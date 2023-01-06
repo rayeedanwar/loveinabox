@@ -1,27 +1,24 @@
 import axios from "axios";
 import { useState } from "react";
+
 import {
   Input,
   Spacer,
-  CheckboxGroup,
-  Stack,
-  Checkbox,
-  useCheckboxGroup,
   useToast, // generic form submission can wrap toast usage too
 } from "@chakra-ui/react";
-import EmailInput from "../components/Form/EmailInput";
-import PhoneInput from "../components/Form/PhoneInput";
-import FormModal from "../components/Form/FormModal";
+import EmailInput from "./Form/EmailInput";
+import PhoneInput from "./Form/PhoneInput";
+import FormModal from "./Form/FormModal";
 
-const baseURL = "http://localhost:3000/volunteers";
-// should admin be different from volunteers?
-// need to digest user types
+const baseURL = `${process.env.REACT_APP_API_URL}/households`;
 
-export default function AddVolunteer() {
+export default function AddRecipient() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [number, setNumber] = useState("");
-  const [availability, setAvailability] = useState([]);
+  const [contactNumber, setContactNumber] = useState("");
+  const [address, setAddress] = useState("");
+  const [adultCount, setAdultCount] = useState(1);
+  const [childCount, setChildCount] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
 
   const toast = useToast();
@@ -29,11 +26,17 @@ export default function AddVolunteer() {
   const handleOnClick = (e) => {
     e.preventDefault();
     setIsLoading(true);
+
     axios
-      .post(baseURL, { name, email, number, availability })
+      .post(baseURL, {
+        address,
+        adultCount,
+        childCount,
+        members: [{ name, email, contactNumber }],
+      })
       .then(() => {
         toast({
-          title: `${name} congrats on volunteering!`,
+          title: `${name}, you've been added!`,
           description: "We've created your account for you.",
           status: "success",
           duration: 9000,
@@ -42,7 +45,7 @@ export default function AddVolunteer() {
       })
       .catch((error) => {
         console.log(error);
-        alert("Woops! Something went wrong AdminSignUpPage :(");
+        alert("Woops! Something went wrong AddHousehold :(");
 
         // this toast causes app to crash :(((((
         // toast({
@@ -65,14 +68,21 @@ export default function AddVolunteer() {
         setEmail(event.target.value);
         break;
       case "number":
-        setNumber(event.target.value);
+        setContactNumber(event.target.value);
+        break;
+      case "address":
+        setAddress(event.target.value);
+        break;
+      case "adultCount":
+        setAdultCount(parseInt(event.target.value));
+        break;
+      case "childCount":
+        setChildCount(parseInt(event.target.value));
         break;
       default:
         break;
     }
   };
-
-  const { getCheckboxProps } = useCheckboxGroup({ onChange: setAvailability });
 
   const modalBody = (
     <form>
@@ -91,27 +101,23 @@ export default function AddVolunteer() {
       <Spacer />
       <br />
 
-      <label>
-        Availability (week of the month):
-        <CheckboxGroup colorScheme="teal" name="availability">
-          <Stack spacing={[1, 5]} direction={["column", "row"]}>
-            <Checkbox {...getCheckboxProps({ value: "first" })}>First</Checkbox>
-            <Checkbox {...getCheckboxProps({ value: "second" })}>
-              Second
-            </Checkbox>
-            <Checkbox {...getCheckboxProps({ value: "third" })}>Third</Checkbox>
-            <Checkbox {...getCheckboxProps({ value: "fourth" })}>
-              Fourth
-            </Checkbox>
-          </Stack>
-        </CheckboxGroup>
-      </label>
+      <Input placeholder="Address" name="address" onChange={handleChange} />
+
+      <Spacer />
+      <br />
+
+      <Input placeholder="1" name="adultCount" onChange={handleChange} />
+
+      <Spacer />
+      <br />
+
+      <Input placeholder="0" name="childCount" onChange={handleChange} />
     </form>
   );
 
   return (
     <FormModal
-      title="Add Volunteer"
+      title="Add Recipient"
       modalBody={modalBody}
       isLoading={isLoading}
       handleOnClick={handleOnClick}

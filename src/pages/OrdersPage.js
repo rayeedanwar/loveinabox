@@ -1,10 +1,10 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Table from "../components/TableWrapper";
-import AddOrder from "./AddOrder";
-import Layout from "./Layout";
+import AddOrder from "../components/AddOrder";
+import Layout from "../components/Layout";
 
-const baseURL = "http://localhost:3000/recipients/orders";
+const baseURL = `${process.env.REACT_APP_API_URL}/recipients/orders`;
 
 export default function OrdersPage() {
   const [orders, setOrders] = useState([]);

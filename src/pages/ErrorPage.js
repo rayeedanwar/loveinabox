@@ -1,4 +1,4 @@
-import Layout from "./Layout";
+import Layout from "../components/Layout";
 import { useRouteError } from "react-router-dom";
 
 export default function ErrorPage() {

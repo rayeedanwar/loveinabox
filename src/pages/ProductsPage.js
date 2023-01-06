@@ -1,10 +1,10 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Table from "../components/TableWrapper";
-import AddProduct from "./AddProduct";
-import Layout from "./Layout";
+import AddProduct from "../components/AddProduct";
+import Layout from "../components/Layout";
 
-const baseURL = "http://localhost:3000/products";
+const baseURL = `${process.env.REACT_APP_API_URL}/products`;
 
 export default function ProductsPage() {
   const [products, setProducts] = useState([]);
