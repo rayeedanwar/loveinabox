@@ -8,7 +8,13 @@ export default function EmailInput({ onChange }) {
         pointerEvents="none"
         children={<EmailIcon color="gray.300" />}
       />
-      <Input type="tel" placeholder="Email" name="email" onChange={onChange} />
+      <Input
+        type="tel"
+        placeholder="Email address"
+        name="email"
+        onChange={onChange}
+        backgroundColor="white"
+      />
     </InputGroup>
   );
 }
