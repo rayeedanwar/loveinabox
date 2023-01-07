@@ -1,6 +1,5 @@
 import "./App.css";
 import { Outlet } from "react-router-dom";
-import VolunteersPage from "./pages/VolunteersPage";
 import ProductsPage from "./pages/ProductsPage";
 import OrdersPage from "./pages/OrdersPage";
 import RecipientsPage from "./pages/RecipientsPage";
@@ -26,10 +25,6 @@ function App() {
       ),
       errorElement: wrapChakraProvider(<ErrorPage />),
       children: [
-        {
-          path: "/volunteers",
-          element: <VolunteersPage />,
-        },
         {
           path: "/recipients",
           element: <RecipientsPage />,

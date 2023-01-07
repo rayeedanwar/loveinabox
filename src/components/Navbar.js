@@ -16,10 +16,6 @@ export default function Navbar() {
         // add boiga menu for smaller viewports
       }
       <ButtonGroup margin={5}>
-        <Link to={`/volunteers`}>
-          <Button>Volunteers</Button>
-        </Link>
-        <Spacer />
         <Link to={`/recipients`}>
           <Button>Recipients</Button>
         </Link>
