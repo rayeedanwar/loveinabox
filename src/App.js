@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 import ItemsPage from "./pages/ItemsPage";
 import OrdersPage from "./pages/OrdersPage";
 import RecipientsPage from "./pages/RecipientsPage";
-import RecipientPage from "./pages/RecipientPage"; // should rename this page
+import HouseholdDetailsPage from "./pages/HouseholdDetailsPage";
 import LoginPage from "./pages/LoginPage";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ChakraProvider } from "@chakra-ui/react";
@@ -38,6 +38,7 @@ function App() {
           path: "/items",
           element: <ItemsPage />,
         },
+        { path: "/households/:householdId", element: <HouseholdDetailsPage /> },
       ],
     },
     {
