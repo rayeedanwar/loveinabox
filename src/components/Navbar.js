@@ -24,8 +24,8 @@ export default function Navbar() {
           <Button>Orders</Button>
         </Link>
         <Spacer />
-        <Link to={`/products`}>
-          <Button>Products</Button>
+        <Link to={`/items`}>
+          <Button>Items</Button>
         </Link>
       </ButtonGroup>
     </Flex>

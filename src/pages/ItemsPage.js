@@ -1,10 +1,10 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Table from "../components/TableWrapper";
-import AddProduct from "../components/AddProduct";
+import AddItem from "../components/AddItem";
 import Layout from "../components/Layout";
 
-const baseURL = `${process.env.REACT_APP_API_URL}/products`;
+const baseURL = `${process.env.REACT_APP_API_URL}/items`;
 
 export default function ProductsPage() {
   const [products, setProducts] = useState([]);
@@ -23,7 +23,7 @@ export default function ProductsPage() {
 
   return (
     <Layout title="Here be yer products">
-      <AddProduct />
+      <AddItem />
       <Table data={products} />
     </Layout>
   );

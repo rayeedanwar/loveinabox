@@ -7,9 +7,9 @@ import {
 } from "@chakra-ui/react";
 import FormModal from "./Form/FormModal";
 
-const baseURL = `${process.env.REACT_APP_API_URL}/products`;
+const baseURL = `${process.env.REACT_APP_API_URL}/items`;
 
-export default function AddProduct() {
+export default function AddItem() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   // may need custom fields
@@ -29,7 +29,7 @@ export default function AddProduct() {
       .post(baseURL, { name, description, count })
       .then((response) => {
         toast({
-          title: `${name} (${count}) added to products!`,
+          title: `${name} (${count}) added to items!`,
           status: "success",
           duration: 9000,
           isClosable: true,
@@ -37,7 +37,7 @@ export default function AddProduct() {
       })
       .catch((error) => {
         console.log(error);
-        alert("Woops! Something went wrong AddProduct :(");
+        alert("Woops! Something went wrong AddItem :(");
 
         // this toast causes app to crash :(((((
         // toast({

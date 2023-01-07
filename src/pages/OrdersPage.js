@@ -15,7 +15,7 @@ export default function OrdersPage() {
     axios
       .get(baseURL)
       .then((response) => {
-        if (response.data.length > 0) setOrders(response.data); // products array would ideally be a grid of pictures or maybe not needed until viewing each order
+        if (response.data.length > 0) setOrders(response.data); // items array would ideally be a grid of pictures or maybe not needed until viewing each order
       })
       .catch((error) => {
         console.log(error);

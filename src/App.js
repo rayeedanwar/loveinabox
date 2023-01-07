@@ -1,8 +1,9 @@
 import "./App.css";
 import { Outlet } from "react-router-dom";
-import ProductsPage from "./pages/ProductsPage";
+import ItemsPage from "./pages/ItemsPage";
 import OrdersPage from "./pages/OrdersPage";
 import RecipientsPage from "./pages/RecipientsPage";
+import RecipientPage from "./pages/RecipientPage"; // should rename this page
 import LoginPage from "./pages/LoginPage";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ChakraProvider } from "@chakra-ui/react";
@@ -34,8 +35,8 @@ function App() {
           element: <OrdersPage />,
         },
         {
-          path: "/products",
-          element: <ProductsPage />,
+          path: "/items",
+          element: <ItemsPage />,
         },
       ],
     },
