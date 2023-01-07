@@ -10,13 +10,14 @@ import {
   TableContainer,
 } from "@chakra-ui/react";
 
-export default function TableWrapper({ caption, data }) {
+export default function TableWrapper({ caption, data, dataTransform }) {
   if (data.length === 0) return <p>No data :(</p>; // probs should be loading state
+  const transformedData = dataTransform ? dataTransform(data) : data;
 
   // typing would be better to handle nulls, won't matter if I use a table component that handles these issues
   // also would remove table primary key as they're useless to a user
   // column ordering needs to be handled
-  const keys = Object.keys(data[0]);
+  const keys = Object.keys(transformedData[0]);
 
   return (
     <TableContainer>
@@ -30,7 +31,7 @@ export default function TableWrapper({ caption, data }) {
           </Tr>
         </Thead>
         <Tbody>
-          {data.map((arrayObject) => {
+          {transformedData.map((arrayObject) => {
             const rows = keys.map((key) => <Td>{arrayObject[key]}</Td>);
             return <Tr>{rows}</Tr>; // availability needs improving
           })}
