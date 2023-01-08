@@ -9,6 +9,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ChakraProvider } from "@chakra-ui/react";
 import ErrorPage from "./pages/ErrorPage";
 import Navbar from "./components/Navbar";
+import axios from "axios";
 
 const wrapChakraProvider = (component) => (
   <ChakraProvider>{component}</ChakraProvider>
@@ -29,14 +30,35 @@ function App() {
         {
           path: "/recipients",
           element: <RecipientsPage />,
+          loader: async () => {
+            return axios
+              .get(`${process.env.REACT_APP_API_URL}/households`)
+              .catch((error) => {
+                console.log(error);
+              });
+          },
         },
         {
           path: "/orders",
           element: <OrdersPage />,
+          loader: async () => {
+            return axios
+              .get(`${process.env.REACT_APP_API_URL}/recipients/orders`)
+              .catch((error) => {
+                console.log(error);
+              });
+          },
         },
         {
           path: "/items",
           element: <ItemsPage />,
+          loader: async () => {
+            return axios
+              .get(`${process.env.REACT_APP_API_URL}/items`)
+              .catch((error) => {
+                console.log(error);
+              });
+          },
         },
         { path: "/households/:householdId", element: <HouseholdDetailsPage /> },
       ],
