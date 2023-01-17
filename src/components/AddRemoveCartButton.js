@@ -1,14 +1,14 @@
 import { Button } from "@chakra-ui/react";
-import isProductInCart from "../utils/isProductInCart";
+import isItemInCart from "../utils/isItemInCart";
 
-export default function AddRemoveCartButton({ cart, productId, onClick }) {
-  const isInCart = isProductInCart(cart, productId);
+export default function AddRemoveCartButton({ cart, itemId, onClick }) {
+  const isInCart = isItemInCart(cart, itemId);
   const buttonText = isInCart ? "Remove from cart" : "Add to cart";
   const colorScheme = isInCart ? "red" : "teal";
 
   return (
     <Button
-      id={productId}
+      id={itemId}
       variant="ghost"
       colorScheme={colorScheme}
       onClick={onClick}
