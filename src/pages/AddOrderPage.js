@@ -25,7 +25,7 @@ import AddRemoveCartButton from "../components/AddRemoveCartButton";
 import Layout from "../components/Layout";
 import isItemInCart from "../utils/isItemInCart";
 import { BsFillBasketFill } from "react-icons/bs";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useLocation } from "react-router-dom";
 const baseURL = `${process.env.REACT_APP_API_URL}/recipients/orders`;
 
 export default function AddOrderPage() {
@@ -35,10 +35,19 @@ export default function AddOrderPage() {
   const toast = useToast();
   const { data } = useLoaderData();
 
+  const location = useLocation();
+  const { selectedRecipientName, familyCount, householdId } = location.state;
+
   const handleOnClick = (e) => {
     e.preventDefault();
     axios
-      .post(baseURL, { cart, notes }) // do I want to send IDs only? what if db gets wiped? is that real?
+      .post(baseURL, {
+        cart,
+        notes,
+        householdId,
+        selectedRecipientName,
+        familyCount,
+      })
       .then(() => {
         toast({
           title: "Congrats! Order placed", // order number might be useful with link to order
@@ -178,6 +187,7 @@ export default function AddOrderPage() {
                   variant="outline"
                   onClick={handleOnClick}
                   mr={5}
+                  disabled={cart.length > 0 ? false : true}
                 >
                   Submit
                 </Button>
