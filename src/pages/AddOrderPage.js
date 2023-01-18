@@ -115,7 +115,7 @@ export default function AddOrderPage() {
   return (
     <Layout>
       <form onSubmit={handleOnClick}>
-        <SimpleGrid columns={2} templateColumns="80vh 1fr;">
+        <SimpleGrid gridTemplateColumns="70vw 10vw">
           <Flex flexWrap="wrap">
             {data.map(({ itemId, name, description, src }) => {
               return (
