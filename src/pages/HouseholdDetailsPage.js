@@ -16,6 +16,7 @@ import Layout from "../components/Layout";
 
 export default function HouseholdDetailsPage() {
   const navigate = useNavigate();
+  const { householdId } = useParams();
   const location = useLocation();
   const {
     selectedRecipientName,
@@ -101,7 +102,15 @@ export default function HouseholdDetailsPage() {
               <IconButton
                 aria-label="Search database"
                 icon={<AddIcon />}
-                onClick={() => navigate("orders/new")}
+                onClick={() =>
+                  navigate("orders/new", {
+                    state: {
+                      selectedRecipientName,
+                      familyCount: adultCount + childCount,
+                      householdId,
+                    },
+                  })
+                }
               />
             </CardHeader>
             <CardBody>
