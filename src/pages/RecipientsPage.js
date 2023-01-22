@@ -31,6 +31,7 @@ export default function RecipientsPage() {
         householdId,
         adultCount,
         childCount,
+        orders,
         ...remainingProperties
       }) => {
         return {
@@ -39,6 +40,7 @@ export default function RecipientsPage() {
               to={`/households/${householdId}`}
               state={{
                 selectedRecipientName: name,
+                orders,
                 ...data.find((house) => house.householdId == householdId),
               }}
             >
