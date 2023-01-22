@@ -26,7 +26,6 @@ import Layout from "../components/Layout";
 import isItemInCart from "../utils/isItemInCart";
 import { BsFillBasketFill } from "react-icons/bs";
 import { useLoaderData, useLocation } from "react-router-dom";
-const baseURL = `${process.env.REACT_APP_API_URL}/recipients/orders`;
 
 export default function AddOrderPage() {
   const [cart, setCart] = useState([]);
@@ -41,13 +40,17 @@ export default function AddOrderPage() {
   const handleOnClick = (e) => {
     e.preventDefault();
     axios
-      .post(baseURL, {
-        cart,
-        notes,
-        householdId,
-        selectedRecipientName,
-        familyCount,
-      })
+      .post(
+        `${process.env.REACT_APP_API_URL}/households/${householdId}/orders`,
+        {
+          cart,
+          notes,
+          householdId,
+          selectedRecipientName,
+          familyCount,
+          placedAt: new Date().toISOString(),
+        }
+      )
       .then(() => {
         toast({
           title: "Congrats! Order placed", // order number might be useful with link to order
