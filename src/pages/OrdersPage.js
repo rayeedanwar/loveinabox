@@ -8,6 +8,15 @@ import {
   Heading,
   Text,
   SimpleGrid,
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionIcon,
+  AccordionPanel,
+  Box,
+  List,
+  UnorderedList,
+  ListItem,
 } from "@chakra-ui/react";
 import { partition } from "../utils/partition";
 
@@ -16,22 +25,60 @@ export default function OrdersPage() {
 
   const [completeOrders, incompleteOrders] = partition(
     data,
-    (order) => order.complete == true
+    (order) => order.completedAt !== undefined
   );
+
+  // should put this as it's own function
+  const dataTransform = (completeOrders) =>
+    completeOrders.map(
+      ({ cart, selectedRecipientName, familyCount, notes, completedAt }) => {
+        return {
+          selectedRecipientName,
+          familyCount,
+          notes,
+          completedAt,
+          "Number of items": (
+            <Accordion allowToggle borderColor="white">
+              <AccordionItem width="inherit">
+                <h2>
+                  <AccordionButton>
+                    <Box as="span" flex="1" textAlign="left">
+                      {cart.length}
+                    </Box>
+                    <AccordionIcon />
+                  </AccordionButton>
+                </h2>
+                <AccordionPanel pb={4}>
+                  <List>
+                    <UnorderedList>
+                      {cart.map(({ name, description }) => {
+                        return (
+                          <>
+                            <ListItem>
+                              {name} - {description}
+                            </ListItem>
+                          </>
+                        );
+                      })}
+                    </UnorderedList>
+                  </List>
+                </AccordionPanel>
+              </AccordionItem>
+            </Accordion>
+          ),
+        };
+      }
+    );
 
   const columnCount = 5;
   return (
     <Layout title="Here be yer orders">
       <SimpleGrid gridTemplateColumns={`repeat(${columnCount}, 1fr)`} gap="1em">
-        {incompleteOrders.map(
-          (order, index) => {
-            if (index < columnCount - 1) {
-              return (
-                <IncompleteOrderCard order={order}/>
-              )
-            }
+        {incompleteOrders.map((order, index) => {
+          if (index < columnCount - 1) {
+            return <IncompleteOrderCard order={order} />;
           }
-        )}
+        })}
         {incompleteOrders.length > columnCount && (
           <Card size="sm" maxW="250px" minW="250px" alignItems>
             <CardBody textAlign="left">
@@ -43,7 +90,11 @@ export default function OrdersPage() {
           </Card>
         )}
       </SimpleGrid>
-      <Table caption="Completed Orders" data={completeOrders} />
+      <Table
+        caption="Completed Orders"
+        data={completeOrders}
+        dataTransform={dataTransform}
+      />
     </Layout>
   );
 }

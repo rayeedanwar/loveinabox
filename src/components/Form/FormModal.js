@@ -44,7 +44,10 @@ export default function FormModal({
                 loadingText="Submitting"
                 colorScheme="teal"
                 variant="outline"
-                onClick={handleOnClick}
+                onClick={(e) => {
+                  handleOnClick(e);
+                  onClose();
+                }}
                 mr={5}
               >
                 Submit

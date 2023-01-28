@@ -25,7 +25,7 @@ import AddRemoveCartButton from "../components/AddRemoveCartButton";
 import Layout from "../components/Layout";
 import isItemInCart from "../utils/isItemInCart";
 import { BsFillBasketFill } from "react-icons/bs";
-import { useLoaderData, useLocation } from "react-router-dom";
+import { useLoaderData, useLocation, useNavigate } from "react-router-dom";
 
 export default function AddOrderPage() {
   const [cart, setCart] = useState([]);
@@ -33,6 +33,7 @@ export default function AddOrderPage() {
   const [isLoading, setIsLoading] = useState(false);
   const toast = useToast();
   const { data } = useLoaderData();
+  const navigate = useNavigate();
 
   const location = useLocation();
   const { selectedRecipientName, familyCount, householdId } = location.state;
@@ -45,7 +46,6 @@ export default function AddOrderPage() {
         {
           cart,
           notes,
-          householdId,
           selectedRecipientName,
           familyCount,
           placedAt: new Date().toISOString(),
@@ -71,7 +71,10 @@ export default function AddOrderPage() {
         //   isClosable: true,
         // });
       })
-      .finally(() => setIsLoading(false));
+      .finally(() => {
+        setIsLoading(false);
+        navigate("/orders");
+      });
   };
 
   const handleChange = (event) => {
@@ -92,28 +95,6 @@ export default function AddOrderPage() {
       setCart([...cart, data.find(({ itemId }) => itemId === intTargetId)]); // data outside of scope of function, potential fix needed as not pure function}
     }
   };
-
-  // mock data
-  // const productsRes = [
-  //   {
-  //     id: 1,
-  //     name: "Rice",
-  //     description: "small",
-  //     src: "/rice.jpg", // https://isthisthatfood.com/is-rice-a-grain/
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "Shampoo",
-  //     description: "big",
-  //     src: "/shampoo.jfif",
-  //   },
-  //   {
-  //     id: 3,
-  //     name: "Tinned tomatoes",
-  //     description: "Family",
-  //     src: "/tomatoes.jfif",
-  //   },
-  // ];
 
   return (
     <Layout>

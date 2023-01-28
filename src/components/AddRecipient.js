@@ -9,6 +9,7 @@ import {
 import EmailInput from "./Form/EmailInput";
 import PhoneInput from "./Form/PhoneInput";
 import FormModal from "./Form/FormModal";
+import { useNavigate } from "react-router-dom";
 
 const baseURL = `${process.env.REACT_APP_API_URL}/households`;
 
@@ -20,6 +21,7 @@ export default function AddRecipient() {
   const [adultCount, setAdultCount] = useState(1);
   const [childCount, setChildCount] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   const toast = useToast();
 
@@ -42,6 +44,7 @@ export default function AddRecipient() {
           duration: 9000,
           isClosable: true,
         });
+        navigate("/recipients");
       })
       .catch((error) => {
         console.log(error);

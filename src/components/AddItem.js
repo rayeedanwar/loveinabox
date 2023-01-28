@@ -7,6 +7,7 @@ import {
   useToast, // generic form submission can wrap toast usage too
 } from "@chakra-ui/react";
 import FormModal from "./Form/FormModal";
+import { useNavigate } from "react-router-dom";
 
 const baseURL = `${process.env.REACT_APP_API_URL}/items`;
 
@@ -20,6 +21,7 @@ export default function AddItem() {
   const [isLoading, setIsLoading] = useState(false);
 
   const toast = useToast();
+  const navigate = useNavigate();
 
   const handleOnClick = (e) => {
     // api call with succes toast feels like it should sit closely with FormModal
@@ -36,6 +38,7 @@ export default function AddItem() {
           duration: 9000,
           isClosable: true,
         });
+        navigate("/items");
       })
       .catch((error) => {
         console.log(error);
