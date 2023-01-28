@@ -6,23 +6,37 @@ import {
   AccordionButton,
   Box,
   Text,
+  Input,
 } from "@chakra-ui/react";
 import { Link, Outlet, useLoaderData } from "react-router-dom";
 import Table from "../components/TableWrapper";
 import AddRecipient from "../components/AddRecipient";
 import Layout from "../components/Layout";
+import { useState } from "react";
 
 export default function RecipientsPage() {
+  const [searchTerm, setSearchTerm] = useState("");
   const { data } = useLoaderData();
 
-  const tableRowData = [];
+  const flatData = [];
   if (data.length > 0) {
     data.forEach(({ members, ...rest }) => {
       members.forEach((member) => {
-        tableRowData.push({ ...member, ...rest });
+        flatData.push({ ...member, ...rest });
       });
     });
   }
+
+  let tableRowData = flatData;
+  if (searchTerm.length > 0) {
+    tableRowData = flatData.filter((recipient) =>
+      recipient.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  }
+
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
+  };
 
   const dataTransform = (recipientsData) =>
     recipientsData.map(
@@ -76,6 +90,11 @@ export default function RecipientsPage() {
   return (
     <Layout title="Here be yer recipients">
       <AddRecipient />
+      <Input
+        placeholder="Search name"
+        value={searchTerm}
+        onChange={handleSearch}
+      />
       <Table data={tableRowData} dataTransform={dataTransform} />
       <Outlet />
     </Layout>
