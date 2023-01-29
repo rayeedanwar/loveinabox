@@ -163,6 +163,7 @@ export default function AddOrderPage() {
                   size="sm"
                   resize="vertical"
                   onChange={handleChange}
+                  name="notes"
                 />
                 <Button
                   isLoading={isLoading}
