@@ -7,6 +7,8 @@ import {
   Box,
   Text,
   Input,
+  Flex,
+  Spacer,
 } from "@chakra-ui/react";
 import { Link, Outlet, useLoaderData } from "react-router-dom";
 import Table from "../components/TableWrapper";
@@ -89,12 +91,16 @@ export default function RecipientsPage() {
   // table needs an ability to search
   return (
     <Layout title="Here be yer recipients">
-      <AddRecipient />
-      <Input
-        placeholder="Search name"
-        value={searchTerm}
-        onChange={handleSearch}
-      />
+      <Flex maxWidth="450px" margin="auto">
+        <AddRecipient />
+        <Spacer />
+        <Input
+          placeholder="Search name"
+          value={searchTerm}
+          onChange={handleSearch}
+          maxWidth="300px"
+        />
+      </Flex>
       <Table data={tableRowData} dataTransform={dataTransform} />
       <Outlet />
     </Layout>
