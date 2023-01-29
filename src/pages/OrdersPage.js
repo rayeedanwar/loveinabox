@@ -23,8 +23,24 @@ import { partition } from "../utils/partition";
 export default function OrdersPage() {
   const { data } = useLoaderData();
 
+  const compareFn = (a, b) => {
+    // probs need to refactor this
+    // .completedAt is only present if the order has been completed
+    // comparing .completedAt to placedAt doesn't make sense
+    // ordering should:
+    // completed orders: most recent first
+    // incomplete orders: oldest first
+    const dateToBeOrderedFirst = a.completedAt
+      ? new Date(a.completedAt)
+      : new Date(b.placedAt);
+    const dateToBeSortedSecond = b.completedAt
+      ? new Date(b.completedAt)
+      : new Date(a.placedAt);
+    return dateToBeSortedSecond - dateToBeOrderedFirst;
+  };
+
   const [completeOrders, incompleteOrders] = partition(
-    data,
+    data.sort(compareFn),
     (order) => order.completedAt !== undefined
   );
 
@@ -32,11 +48,13 @@ export default function OrdersPage() {
   const dataTransform = (completeOrders) =>
     completeOrders.map(
       ({ cart, selectedRecipientName, familyCount, notes, completedAt }) => {
+        const parsedDate = new Date(completedAt);
         return {
+          "Date completed": parsedDate.toLocaleDateString("en-GB"),
+          "Time completed": parsedDate.toLocaleTimeString("en-GB"),
           selectedRecipientName,
-          familyCount,
           notes,
-          completedAt,
+          familyCount,
           "Number of items": (
             <Accordion allowToggle borderColor="white">
               <AccordionItem width="inherit">
