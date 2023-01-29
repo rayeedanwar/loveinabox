@@ -1,8 +1,23 @@
 import { Button, ButtonGroup, Flex, Image, Spacer } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 // logo
 // https://www.flaticon.com/free-icon/open-box_1083057?related_id=1082955&origin=search
+
+const NavButton = ({ routeTo, text, currentRoute }) => {
+  const location = useLocation();
+  const isActiveRoute = routeTo === location.pathname;
+  return (
+    <Link to={routeTo}>
+      <Button
+        bgColor={`teal${isActiveRoute && ".900"}`}
+        color={isActiveRoute ? "white" : "black"}
+      >
+        {text}
+      </Button>
+    </Link>
+  );
+};
 
 export default function Navbar() {
   return (
@@ -16,17 +31,9 @@ export default function Navbar() {
         // add boiga menu for smaller viewports
       }
       <ButtonGroup margin={5}>
-        <Link to={`/recipients`}>
-          <Button>Recipients</Button>
-        </Link>
-        <Spacer />
-        <Link to={`/orders`}>
-          <Button>Orders</Button>
-        </Link>
-        <Spacer />
-        <Link to={`/items`}>
-          <Button>Items</Button>
-        </Link>
+        <NavButton routeTo="/recipients" text="Recipients" />
+        <NavButton routeTo="/orders" text="Orders" />
+        <NavButton routeTo="/items" text="Items" />
       </ButtonGroup>
     </Flex>
   );
