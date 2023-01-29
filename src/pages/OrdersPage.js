@@ -102,7 +102,6 @@ export default function OrdersPage() {
             <CardBody textAlign="left">
               <Heading>
                 {incompleteOrders.length - columnCount} more order(s) incomplete
-                <Text>See more</Text>
               </Heading>
             </CardBody>
           </Card>
