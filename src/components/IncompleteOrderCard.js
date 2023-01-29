@@ -64,12 +64,21 @@ export default function IncompleteOrderCard(props) {
     notes,
     householdId,
     orderId,
+    placedAt,
   } = props.order;
+  const parsedDate = new Date(placedAt);
   return (
     <Card size="sm" maxW="250px" minW="250px" key={6}>
       <CardHeader>
         <Heading size="md">{selectedRecipientName}</Heading>
         <Text>{familyCount} family member(s)</Text>
+        <Text>
+          Placed at:{" "}
+          {parsedDate.toLocaleTimeString("en-GB", {
+            hour: "2-digit",
+            minute: "2-digit",
+          })}
+        </Text>
       </CardHeader>
       <Divider />
       <CardBody textAlign="left">
@@ -87,14 +96,15 @@ export default function IncompleteOrderCard(props) {
           </UnorderedList>
         </List>
       </CardBody>
+      {notes && (
+        <div>
+          <Divider />
+          <Heading size="sm">Notes</Heading>
+          <Text>{notes}</Text>
+        </div>
+      )}
       <Divider />
       <CardFooter>
-        {notes && (
-          <div>
-            <Text>Notes</Text>
-            <Text>{notes}</Text>
-          </div>
-        )}
         <Button
           isLoading={isLoading}
           loadingText="Submitting"
