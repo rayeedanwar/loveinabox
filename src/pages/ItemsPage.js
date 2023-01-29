@@ -7,7 +7,7 @@ export default function ProductsPage() {
   const { data } = useLoaderData();
 
   return (
-    <Layout title="Here be yer items">
+    <Layout title="Items">
       <AddItem />
       <Table data={data} />
     </Layout>

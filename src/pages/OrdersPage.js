@@ -72,7 +72,7 @@ export default function OrdersPage() {
 
   const columnCount = 5;
   return (
-    <Layout title="Here be yer orders">
+    <Layout title="Orders">
       <SimpleGrid gridTemplateColumns={`repeat(${columnCount}, 1fr)`} gap="1em">
         {incompleteOrders.map((order, index) => {
           if (index < columnCount - 1) {
