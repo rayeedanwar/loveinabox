@@ -44,7 +44,7 @@ function App() {
           element: <OrdersPage />,
           loader: async () => {
             return axios
-              .get(`${process.env.REACT_APP_API_URL}/recipients/orders`)
+              .get(`${process.env.REACT_APP_API_URL}/orders`)
               .catch((error) => {
                 console.log(error);
               });

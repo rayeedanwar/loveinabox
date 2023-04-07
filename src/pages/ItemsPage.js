@@ -3,7 +3,7 @@ import AddItem from "../components/AddItem";
 import Layout from "../components/Layout";
 import { useLoaderData } from "react-router-dom";
 
-export default function ProductsPage() {
+export default function ItemsPage() {
   const { data } = useLoaderData();
   const dataTransform = (itemData) => {
     return itemData.map(
